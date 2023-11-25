@@ -23,9 +23,13 @@ class Game:
 
     def draw(self):
         currentPosition = (0, 0)
-        for _ in range(self.board.getBoardSize()[0]):
-            for _ in range(self.board.getBoardSize()[1]):
-                image = self.images["empty-block"]
+        for rowIndex in range(self.board.getBoardSize()[0]):
+            for colIndex in range(self.board.getBoardSize()[1]):
+                piece = self.board.getPiece((rowIndex, colIndex))
+                if piece.getHasBomb():
+                    image = self.images["unclicked-bomb"]
+                else:
+                    image = self.images["empty-block"]
                 self.screen.blit(image, currentPosition)
                 currentPosition = (currentPosition[0] + self.pieceSize[0], currentPosition[1])
             currentPosition = (0, currentPosition[1] + self.pieceSize[1])
